@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tournaments List</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center">Tournaments List</h1>
+    <a href="/add" class="btn btn-primary mb-3">Add Tournament</a>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Date</th>
+          <th>Location</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% tournaments.forEach(tournament => { %>
+            <tr>
+              <td><%= tournament.id %></td>
+              <td><%= tournament.name %></td>
+              <td><%= tournament.description %></td>
+              <td><%= tournament.date %></td>
+              <td><%= tournament.location %></td>
+              <td>
+                <a href="/edit/<%= tournament.id %>" class="btn btn-warning btn-sm">Edit</a>
+                <a href="/delete/<%= tournament.id %>" class="btn btn-danger btn-sm">Delete</a>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+  </html>
+  
+  
