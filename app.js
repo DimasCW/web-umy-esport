@@ -8,6 +8,8 @@ const port = 3000;
 
 // Setup body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/assets', express.static('assets'));
+
 
 // Setup EJS
 app.set('view engine', 'ejs');
@@ -63,6 +65,8 @@ app.get('/tournament/:id', (req, res) => {
       res.render('tournamentDetail', { tournament: results[0] });
   });
 });
+
+
 
 // Add a new tournament
 app.get('/add', (req, res) => {
