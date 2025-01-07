@@ -13,13 +13,28 @@
             height: 100%;
             overflow-x: hidden;
         }
-        .carousel {
-            height: 100vh;
-        }
-        .carousel-item img {
+        .banner {
+            position: relative;
             width: 100%;
             height: 100vh;
-            object-fit: cover;
+            background: url('https://via.placeholder.com/1200x500') no-repeat center center;
+            background-size: cover;
+        }
+        .banner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+        }
+        .banner-text h1 {
+            font-size: 4rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+        .banner-text p {
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
         }
     </style>
 </head>
@@ -39,27 +54,12 @@
         </div>
     </nav>
 
-    <!-- Fullscreen Carousel Section -->
-    <div id="carouselExample" class="carousel slide carousel-fade" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://via.placeholder.com/1200x500" class="d-block w-100" alt="Carousel Image 1">
-            </div>
-            <div class="carousel-item">
-                <img src="https://via.placeholder.com/1200x500" class="d-block w-100" alt="Carousel Image 2">
-            </div>
-            <div class="carousel-item">
-                <img src="https://via.placeholder.com/1200x500" class="d-block w-100" alt="Carousel Image 3">
-            </div>
+    <!-- Fullscreen Banner Section -->
+    <div class="banner">
+        <div class="banner-text">
+            <h1>Welcome to the Tournaments</h1>
+            <p>Discover exciting tournaments and join the fun!</p>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
 
     <!-- Tournament List Section -->
