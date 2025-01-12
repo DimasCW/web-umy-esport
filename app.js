@@ -128,6 +128,9 @@ app.post('/add', upload.single('image'), (req, res) => {
   const { name, description, date, location } = req.body;
   const imageUrl = req.file ? '/uploads/' + req.file.filename : null; // Simpan URL gambar
 
+ // Ubah newline menjadi <br> untuk deskripsi
+ const formattedDescription = description.replace(/\n/g, '<br>');
+
   // Validasi: Pastikan tanggal kosong bisa diset menjadi NULL
   const tournamentDate = date ? date : null;
 
@@ -152,6 +155,9 @@ app.post('/edit/:id', upload.single('image'), (req, res) => {
   const { id } = req.params;
   const { name, description, date, location } = req.body;
   const imageUrl = req.file ? '/uploads/' + req.file.filename : null; // Simpan URL gambar
+
+  // Ubah newline menjadi <br> untuk deskripsi
+  const formattedDescription = description.replace(/\n/g, '<br>');
 
   // Validasi: Pastikan tanggal kosong bisa diset menjadi NULL
   const tournamentDate = date ? date : null;

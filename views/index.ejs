@@ -352,7 +352,7 @@
                             onclick="showTournamentDetails(
                                 '<%= tournament.image_url %>', 
                                 '<%= tournament.name %>', 
-                                '<%= tournament.description %>', 
+                                '<%= tournament.description%>', 
                                 '<%= new Date(tournament.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %>', 
                                 '<%= tournament.location %>', 
                                 '<%= tournament.organizer %>'
@@ -376,7 +376,7 @@
                 <!-- Tournament Image -->
                 <img id="modal-tournament-image" class="img-fluid mb-3" alt="Tournament Image">
                 <h4 id="modal-tournament-name"></h4>
-                <p id="modal-tournament-description"></p>
+                <p id="modal-tournament-description" style="white-space: pre-wrap;"></p>
                 <p><strong>Date:</strong> <span id="modal-tournament-date"></span></p>
                 <p><strong>Location:</strong> <span id="modal-tournament-location"></span></p>
                 <p><strong>Organizer:</strong> <span id="modal-tournament-organizer"></span></p>
@@ -402,7 +402,7 @@
                 <h2>Want to get in touch with us?</h2>
                 <p>Get in touch and let us know how we can help. Fill out the form and we'll be in touch as soon as possible.</p>
                 <ul class="list-unstyled">
-                    <li><strong><i class="fa-solid fa-location-dot"></i> Address:</strong> <br>Jl. Brawijaya, Geblagan, Tamantirto, Kec. Kasihan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55183</li>
+                    <li><strong><i class="fa-solid fa-location-dot"></i> Address:</strong> <br>Tamantirto, Kabupaten Bantul, Daerah Istimewa Yogyakarta</li>
                     <li><strong><i class="fa-solid fa-phone"></i> Phone:</strong> <br>0816-830-861 (Gio)</li>
                 </ul>
                 <div class="mt-3">

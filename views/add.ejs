@@ -47,6 +47,12 @@
       border-color: #0056b3;
     }
   </style>
+  <script>
+    // Function to remove line breaks (Enter key) from the input fields in real-time
+    function removeLineBreaks(event) {
+      event.target.value = event.target.value.replace(/(\r\n|\n|\r)/gm, ""); // Remove all line breaks
+    }
+  </script>
 </head>
 <body>
 
@@ -55,11 +61,11 @@
     <form action="/add" method="POST" enctype="multipart/form-data">
       <div class="form-group">
         <label for="name">Tournament Name</label>
-        <input type="text" class="form-control" id="name" name="name" maxlength="255" required placeholder="Enter tournament name">
+        <input type="text" class="form-control" id="name" name="name" maxlength="255" required placeholder="Enter tournament name" oninput="removeLineBreaks(event)">
       </div>
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea class="form-control" id="description" name="description" maxlength="255" placeholder="Enter tournament description" rows="4"></textarea>
+        <textarea class="form-control" id="description" name="description" placeholder="Enter tournament description" rows="4" oninput="removeLineBreaks(event)"></textarea>
       </div>
       <div class="form-group">
         <label for="date">Date</label>
@@ -67,7 +73,7 @@
       </div>
       <div class="form-group">
         <label for="location">Location</label>
-        <input type="text" class="form-control" id="location" name="location" maxlength="255" required placeholder="Enter location">
+        <input type="text" class="form-control" id="location" name="location" maxlength="255" required placeholder="Enter location" oninput="removeLineBreaks(event)">
       </div>
       <div class="form-group">
         <label for="image">Tournament Image</label>
