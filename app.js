@@ -1,18 +1,35 @@
 const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
+const multer = require('multer');
 const path = require('path');
+const bcrypt = require("bcrypt");
 
 const app = express();
-const port = 3000;
+const port = 3229;
+app.use(bodyParser.json());
 
 // Setup body-parser
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/uploads', express.static('uploads'));
 app.use('/assets', express.static('assets'));
-
 
 // Setup EJS
 app.set('view engine', 'ejs');
+
+// Konfigurasi penyimpanan file dengan multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // folder tujuan penyimpanan file
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // penamaan file berdasarkan waktu
+  }
+});
+
+const upload = multer({ storage: storage });
+
+
 
 // Connect to MySQL
 const db = mysql.createConnection({
@@ -28,6 +45,34 @@ db.connect((err) => {
   } else {
     console.log('Connected to MySQL');
   }
+});
+
+// Endpoint untuk login
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ message: "Username dan password wajib diisi!" });
+  }
+
+  const query = "SELECT * FROM users WHERE username = ?";
+  db.query(query, [username], (err, results) => {
+    if (err) throw err;
+
+    if (results.length === 0) {
+      return res.status(404).json({ message: "Pengguna tidak ditemukan!" });
+    }
+
+    const user = results[0];
+
+    // Bandingkan password input dengan password di database
+    if (password !== user.password) {
+      return res.status(401).json({ message: "Password salah!" });
+    }
+
+    // Jika login berhasil, redirect ke halaman admin
+    res.redirect('/admin'); // Mengarahkan ke halaman admin
+  });
 });
 
 // Routes
@@ -67,6 +112,11 @@ app.get('/tournament/:id', (req, res) => {
 });
 
 
+app.get('/login', (req, res) => {
+  res.render('login'); // Pastikan Anda memiliki file `login.ejs` di folder views
+});
+
+
 
 // Add a new tournament
 app.get('/add', (req, res) => {
@@ -74,18 +124,20 @@ app.get('/add', (req, res) => {
 });
 
 
-app.post('/add', (req, res) => {
+app.post('/add', upload.single('image'), (req, res) => {
   const { name, description, date, location } = req.body;
+  const imageUrl = req.file ? '/uploads/' + req.file.filename : null; // Simpan URL gambar
 
   // Validasi: Pastikan tanggal kosong bisa diset menjadi NULL
   const tournamentDate = date ? date : null;
 
-  db.query('INSERT INTO tournaments (name, description, date, location) VALUES (?, ?, ?, ?)', 
-    [name, description, tournamentDate, location], (err) => {
+  db.query('INSERT INTO tournaments (name, description, date, location, image_url) VALUES (?, ?, ?, ?, ?)', 
+    [name, description, tournamentDate, location, imageUrl], (err) => {
       if (err) throw err;
-      res.redirect('/');
+      res.redirect('/admin');
   });
 });
+
 
 // Edit a tournament
 app.get('/edit/:id', (req, res) => {
@@ -96,17 +148,26 @@ app.get('/edit/:id', (req, res) => {
   });
 });
 
-app.post('/edit/:id', (req, res) => {
+app.post('/edit/:id', upload.single('image'), (req, res) => {
   const { id } = req.params;
   const { name, description, date, location } = req.body;
+  const imageUrl = req.file ? '/uploads/' + req.file.filename : null; // Simpan URL gambar
 
   // Validasi: Pastikan tanggal kosong bisa diset menjadi NULL
   const tournamentDate = date ? date : null;
 
-  db.query('UPDATE tournaments SET name = ?, description = ?, date = ?, location = ? WHERE id = ?', 
-    [name, description, tournamentDate, location, id], (err) => {
-      if (err) throw err;
-      res.redirect('/');
+  // Jika ada gambar baru, update image_url
+  const query = imageUrl 
+    ? 'UPDATE tournaments SET name = ?, description = ?, date = ?, location = ?, image_url = ? WHERE id = ?'
+    : 'UPDATE tournaments SET name = ?, description = ?, date = ?, location = ? WHERE id = ?';
+
+  const params = imageUrl 
+    ? [name, description, tournamentDate, location, imageUrl, id] 
+    : [name, description, tournamentDate, location, id];
+
+  db.query(query, params, (err) => {
+    if (err) throw err;
+    res.redirect('/');
   });
 });
 
@@ -115,7 +176,7 @@ app.get('/delete/:id', (req, res) => {
   const { id } = req.params;
   db.query('DELETE FROM tournaments WHERE id = ?', [id], (err) => {
     if (err) throw err;
-    res.redirect('/');
+    res.redirect('/admin');
   });
 });
 

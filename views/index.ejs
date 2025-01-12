@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tournaments</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -16,18 +19,23 @@
         }
 
         html, body {
+            scroll-behavior: smooth;
             margin: 0;
             padding: 0;
             height: 100%;
             overflow-x: hidden;
         }
+
         .banner {
             position: relative;
+            margin-top: 19px;
+            margin-bottom: -200px;
             width: 100%;
             height: 100vh;
-            background: url('/assets/banner.png') no-repeat ;
-            background-size: cover;
+            background: url('/assets/1.png') no-repeat;
+            background-size: contain;
         }
+
         .banner-text {
             position: absolute;
             top: 50%;
@@ -36,90 +44,259 @@
             color: white;
             text-align: center;
         }
+
         .banner-text h1 {
             font-size: 4rem;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
         }
+
         .banner-text p {
             font-size: 1.5rem;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
         }
+
+        .gariss{
+            background-color: #004aad;
+        }
+
         .navbar-nav .nav-link {
-        position: relative;
-        display: inline-block;
-        transition: color 0.3s ease;
-    }
+            position: relative;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
 
-    .navbar-nav .nav-link:hover {
-        color: #ff4081; /* Pink color when hovered */
-    }
+        .navbar-nav .nav-link:hover {
+            color: #004aad;
+        }
 
-    .navbar-nav .nav-link::after {
-        content: "";
-        position: absolute;
-        width: 0;
-        height: 2px;
-        background-color: #e443a6; /* Pink underline */
-        left: 50%;
-        bottom: -5px;
-        transition: width 0.3s ease, left 0.3s ease;
-    }
+        .navbar-nav .nav-link {
+    color: #004aad; /* Warna untuk semua link di navbar */
+}
+.dark-mode .navbar-nav .nav-link:hover {
+            color: #ffa800;
+        }
 
-    .navbar-nav .nav-link:hover::after {
-        width: 100%;
-        left: 0;
-    }
+        .dark-mode .navbar-nav .nav-link {
+    color: #ffa800; /* Warna untuk semua link di navbar */
+}
 
-    .card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-    }
+        .navbar-nav .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: #004aad;
+            left: 50%;
+            bottom: -5px;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+        .dark-mode .navbar-nav .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: #ffa800;
+            left: 50%;
+            bottom: -5px;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
 
-    .glass-card {
-        background-color: rgba(255, 255, 255, 0.123); /* Increased transparency for glass effect */
-        backdrop-filter: blur(15px); /* Stronger blur for a more prominent glass effect */
-        border: 1px solid rgba(255, 255, 255, 0.2); /* More subtle border to enhance the glass look */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    }
+        .navbar-nav .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+        .dark-mode .navbar-nav .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
 
-    .btn {
-        font-size: 1rem;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-weight: bold;
-        background-color: transparent;
-        border-color: #e443a6;
-        color: #e443a6; /* Button text color */
-        transition: color 0.3s ease;
-    }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .dark-mode .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
 
-    .btn:hover {
-        background-color: #e443a6;
-        color: white; /* Change text color to white on hover */
-    }
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.123);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
+        .btn {
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            background-color: transparent;
+            border-color: #004aad;
+            color: #004aad;
+            transition: color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #004aad;
+            color: white;
+        }
+
+        /* Add a fade-in animation */
+        .card {
+            opacity: 0; /* Start as invisible */
+            transform: translateY(100px); /* Start slightly below */
+            transition: opacity 1.6s ease, transform 1.6s ease;
+        }
+
+        .card.visible {
+            opacity: 1; /* Become fully visible */
+            transform: translateY(0); /* Move to the original position */
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #0d1216;
+            color: #f5f5f5;
+        }
+
+        .dark-mode .navbar {
+            background-color: #1c1c1c;
+        }
+
+        .dark-mode .card {
+            background-color: #292929;
+            color: #f5f5f5;
+        }
+
+        .dark-mode .banner {
+            position: relative;
+            margin-top: 19px;
+            margin-bottom: -150px;
+            width: 100%;
+            height: 100vh;
+            background: url('/assets/2.png') no-repeat;
+            background-size: contain;
+        }
+
+        .dark-mode .gariss{
+            background-color: #ffa800;
+        }
+
+        .dark-mode .navbar-nav .nav-link:hover {
+            color: #ffa800;
+        }
+
+        .dark-mode .navbar-nav .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: #ffa800;
+            left: 50%;
+            bottom: -5px;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        .dark-mode .card-text {
+            color: #ddd;
+        }
+
+        .dark-mode .btn {
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            background-color: transparent;
+            border-color: #ffa800;
+            color: #ffa800;
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode .btn:hover {
+            background-color: #ffa800;
+            color: white;
+        }
+
+        .dark-mode .navbar-nav .nav-link {
+            color: #f5f5f5;
+        }
+
+        .dark-mode .navbar-nav .nav-link:hover {
+            color: #ffa800;
+        }
+
+        .dark-mode .footer {
+            background-color: #292929;
+        }
+
+        .dark-mode  a{
+            color: #ffa800;
+        }
+
+        .dark-mode .navbar-nav .nav-link {
+    color: #ffa800; /* Warna untuk semua link di navbar */
+}
+        .navbar-nav .nav-link {
+    color: #004aad; /* Warna untuk semua link di navbar */
+}
+
+        .dark-mode .huruf{
+            color: #ffffff;
+        }
+        .dark-mode .huruf-abu{
+            color: #ffffff;
+        }
+
+        .logotxt {
+            display: flex;
+            align-items: center; /* Vertically center the text */
+            font-size: 1.5rem; /* Adjust font size */
+            font-weight: bold; /* Make the text bold */
+            color: #0056b3; /* Dark gray color for the text */
+            text-decoration: none; /* Remove underline */
+            padding: 10px 15px; /* Add some padding around the text */
+            transition: color 0.3s ease; /* Add smooth transition on hover */
+        }
+
+       
+
+        /* Optional: Add a logo image if needed */
+        .logotxt img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px; /* Space between logo image and text */
+        }
+
+        .dark-mode .modal-body{
+            
+            color: #160505;
+        }
+        
     </style>
 </head>
+
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top border-bottom" style="border-color: #007bff; backdrop-filter: blur(10px);">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top border-bottom" style=" border-color: #007bff; backdrop-filter: blur(10px);">
         <div class="container-fluid">
             <!-- Logo on the left -->
-            <a class="navbar-brand" href="/home">
-                <img src="path/to/logo.png" alt="Logo" style="width: 40px; height: 40px;">
+            <a class="logotxt" href="/">
+                <!-- <img src="path/to/logo.png" alt="Logo" style="width: 40px; height: 40px;"> -->
+                 UMY ARENA
             </a>
     
             <!-- Centered navigation buttons -->
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/home" style="color: #e443a6;">Home</a>
+                        <a class="nav-link" href="#home" >Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/about" style="color: #e443a6;">About</a>
+                        <a class="nav-link" href="#turnamen" >Tournament</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/services" style="color: #e443a6;">Services</a>
+                        <a class="nav-link" href="#kontak" >Contact</a>
                     </li>
                 </ul>
             </div>
@@ -127,62 +304,210 @@
             <!-- Admin button on the right -->
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin" style="color: #e443a6;">Admin</a>
+                    <a class="nav-link" href="/login"  >Admin</a>
                 </li>
             </ul>
+
+            <!-- Dark Mode Toggle Button -->
+            <button id="theme-toggle" class="btn btn-light ms-3">
+                <i class="fas fa-moon"></i> 
+            </button>
         </div>
     </nav>
-    
-    
 
     <!-- Fullscreen Banner Section -->
-    <div class="banner">
-        
-    </div>
+    <div id="home" class="banner"></div>
 
-<!-- Tournament List Section -->
-<div class="container mt-5">
-    <!-- Info Turnamen Header -->
-    <div class="text-center mb-5">
-        <h2>Info Turnamen</h2>
-        <div style="width: 150px; height: 3px; background-color: #e443a6; margin: 0 auto;"></div>
-    </div>
+    <!-- Tournament List Section -->
+    <div id="turnamen" class="container mt-5">
+        <!-- Info Turnamen Header -->
+        <div  class="text-center mb-5">
+            <h2>Info Turnamen</h2>
+            <div class="gariss" style="width: 150px; height: 3px;  margin: 0 auto;"></div>
+        </div>
 
-    <div class="row g-4">
-        <!-- Loop through tournaments and display each one in a card -->
-        <% tournaments.forEach(tournament => { %>
-            <div class="col-md-4">
-                <!-- Wrap the card in an anchor tag to make it clickable -->
-                <a href="/tournament/<%= tournament.id %>" class="text-decoration-none">
+        <div class="row g-4">
+            <!-- Loop through tournaments and display each one in a card -->
+            <% tournaments.forEach(tournament => { %>
+                <div class="col-md-4">
                     <div class="card glass-card shadow-lg border-0 rounded-3 overflow-hidden" style="transition: transform 0.3s ease;">
                         <div class="card-body">
-                            <h5 class="card-title text-dark mb-3" style="font-size: 1.25rem; font-weight: bold;"><%= tournament.name %></h5>
-                            <p class="card-text text-muted" style="font-size: 0.9rem;"><%= tournament.description %></p>
-                            <p class="card-text text-dark" style="font-size: 0.9rem;">
+                            <img src="<%= tournament.image_url %>" class="img-fluid mb-3" alt="<%= tournament.name %>">
+                            <h5 class="huruf card-title  mb-3" style="font-size: 1.25rem; font-weight: bold;"><%= tournament.name %></h5>
+                            <p class="huruf-abu " style="font-size: 0.9rem;"><%= tournament.description %></p>
+                            <p class="huruf " style="font-size: 0.9rem;">
                                 <strong>Date:</strong> <%= new Date(tournament.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %>
                             </p>
-                            <p class="card-text text-dark" style="font-size: 0.9rem;">
+                            <p class="huruf  " style="font-size: 0.9rem;">
                                 <strong>Location:</strong> <%= tournament.location %>
                             </p>
-                            <!-- Button to view more details -->
-                            <a href="/tournament/<%= tournament.id %>" class="btn btn-primary">View Details</a>
+                            <!-- Button to open modal with tournament details -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tournamentModal" 
+                            onclick="showTournamentDetails(
+                                '<%= tournament.image_url %>', 
+                                '<%= tournament.name %>', 
+                                '<%= tournament.description %>', 
+                                '<%= new Date(tournament.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %>', 
+                                '<%= tournament.location %>', 
+                                '<%= tournament.organizer %>'
+                            )">View Details</button>
                         </div>
                     </div>
-                </a>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <!-- Modal Template -->
+<div class="modal fade" id="tournamentModal" tabindex="-1" aria-labelledby="tournamentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark" id="tournamentModalLabel">Tournament Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        <% }); %>
+            <div class="modal-body">
+                <!-- Tournament Image -->
+                <img id="modal-tournament-image" class="img-fluid mb-3" alt="Tournament Image">
+                <h4 id="modal-tournament-name"></h4>
+                <p id="modal-tournament-description"></p>
+                <p><strong>Date:</strong> <span id="modal-tournament-date"></span></p>
+                <p><strong>Location:</strong> <span id="modal-tournament-location"></span></p>
+                <p><strong>Organizer:</strong> <span id="modal-tournament-organizer"></span></p>
+                <!-- Additional Tournament Information -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="window.location.href='https://wa.me/+62816830861'">Daftar</button>
+            </div>
+        </div>
     </div>
 </div>
 
 
+    <!-- Contact Section -->
+    <div id="kontak" class="container my-5">
+        <div class="text-center mb-5">
+            <h2>Contact Us</h2>
+            <div class="gariss" style="width: 150px; height: 3px; ; margin: 0 auto;"></div>
+        </div>
+        <div class="row align-items-center">
+            <!-- Left Side: Contact Info -->
+            <div class="col-md-6">
+                <h2>Want to get in touch with us?</h2>
+                <p>Get in touch and let us know how we can help. Fill out the form and we'll be in touch as soon as possible.</p>
+                <ul class="list-unstyled">
+                    <li><strong><i class="fa-solid fa-location-dot"></i> Address:</strong> <br>Jl. Brawijaya, Geblagan, Tamantirto, Kec. Kasihan, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55183</li>
+                    <li><strong><i class="fa-solid fa-phone"></i> Phone:</strong> <br>0816-830-861 (Gio)</li>
+                </ul>
+                <div class="mt-3">
+                    <!-- Social Media Icons -->
+                    <a href="https://www.facebook.com" target="_blank" class="me-3 text-decoration-none text-dark">
+                        <i class="fab fa-facebook fa-2x"></i>
+                    </a>
+                    <a href="https://www.twitter.com" target="_blank" class="me-3 text-decoration-none text-dark">
+                        <i class="fab fa-twitter fa-2x"></i>
+                    </a>
+                    <a href="https://www.instagram.com/umyesportarena/" target="_blank" class="text-decoration-none text-dark">
+                        <i class="fab fa-instagram fa-2x"></i>
+                    </a>
+                </div>
+            </div>
 
+            <!-- Right Side: Contact Form -->
+            <div class="col-md-6">
+                <div class="card glass-card p-4">
+                    <h4 class="text-center mb-4">Send us a message</h4>
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Footer Section -->
+    <footer class="bg-dark text-light py-4 footer">
+        <div class="container text-center">
+            <p>&copy; 2025 UMY eSports Arena. All rights reserved.</p>
+        </div>
+    </footer>
 
-</div><div style="height: 500px; background-color: #007bff; margin-top: 20px;">
-
-</div>
-
-    <!-- Bootstrap JS and dependencies -->
+    <!-- Bootstrap JS and custom JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Create an intersection observer
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        // Observe each card element
+        document.querySelectorAll('.card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Dark Mode Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Check if dark mode is enabled
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+
+            // Change icon based on mode
+            const icon = themeToggle.querySelector('i');
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+
+            // Save preference to localStorage
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+        // Modal Functionality
+        function showTournamentDetails(imageUrl, name, description, date, location, organizer) {
+    // Set image
+    document.getElementById('modal-tournament-image').src = imageUrl;
+
+    // Set other tournament details
+    document.getElementById('modal-tournament-name').textContent = name;
+    document.getElementById('modal-tournament-description').textContent = description;
+    document.getElementById('modal-tournament-date').textContent = date;
+    document.getElementById('modal-tournament-location').textContent = location;
+    document.getElementById('modal-tournament-organizer').textContent = organizer;
+
+}
+
+    </script>
 </body>
+
 </html>

@@ -26,6 +26,10 @@
         <label for="location">Location</label>
         <input type="text" class="form-control" id="location" name="location" value="<%= tournament.location %>">
       </div>
+      <div class="form-group">
+        <label for="image">Tournament Image</label>
+        <input type="file" class="form-control" id="image" name="image" value="<%= tournament.image_url %>">
+      </div>
       <button type="submit" class="btn btn-primary">Update Tournament</button>
     </form>
   </div>

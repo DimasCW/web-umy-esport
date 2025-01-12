@@ -9,26 +9,29 @@
 <body>
   <div class="container mt-5">
     <h1 class="text-center">Add Tournament</h1>
-    <form action="/add" method="POST">
+    <form action="/add" method="POST" enctype="multipart/form-data">
       <div class="form-group">
         <label for="name">Tournament Name</label>
-        <input type="text" class="form-control" id="name" name="name" required>
+        <input type="text" class="form-control" id="name" name="name" maxlength="255" required>
       </div>
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea class="form-control" id="description" name="description"></textarea>
+        <textarea class="form-control" id="description" name="description" maxlength="255"></textarea>
       </div>
       <div class="form-group">
         <label for="date">Date</label>
-        <input type="date" class="form-control" id="date" name="date">
+        <input type="date" class="form-control" id="date" name="date" maxlength="255">
       </div>
       <div class="form-group">
         <label for="location">Location</label>
-        <input type="text" class="form-control" id="location" name="location">
+        <input type="text" class="form-control" id="location" name="location" maxlength="255">
+      </div>
+      <div class="form-group">
+        <label for="image">Tournament Image</label>
+        <input type="file" class="form-control" id="image" name="image">
       </div>
       <button type="submit" class="btn btn-primary">Save Tournament</button>
     </form>
   </div>
 </body>
 </html>
-
