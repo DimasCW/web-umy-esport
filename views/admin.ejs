@@ -4,14 +4,74 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tournaments List</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Arial', sans-serif;
+    }
+    h1 {
+      font-weight: bold;
+      color: #0056b3;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    .btn-danger {
+      background-color: #dc3545;
+      border: none;
+    }
+    .btn-danger:hover {
+      background-color: #b02a37;
+    }
+    .btn-warning {
+      background-color: #ffc107;
+      border: none;
+    }
+    .btn-warning:hover {
+      background-color: #e0a800;
+    }
+    .table img {
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .table th {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+    }
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: #f2f2f2;
+    }
+    .table-hover tbody tr:hover {
+      background-color: #e9ecef;
+    }
+    .table td {
+      vertical-align: middle;
+    }
+    .table td, .table th {
+      text-align: center;
+    }
+    .table .actions a {
+      margin-right: 5px;
+    }
+    .container {
+      margin-top: 50px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container mt-5">
-    <h1 class="text-center">Tournaments List</h1>
-    <a href="/add" class="btn btn-primary mb-3">Add Tournament</a>
-    <a href="/" class="btn btn-danger mb-3">Logout</a>
-    <table class="table table-bordered">
+  <div class="container">
+    <h1 class="text-center mb-4">Tournaments Management</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <a href="/add" class="btn btn-primary">Add Tournament</a>
+      <a href="/" class="btn btn-danger">Logout</a>
+    </div>
+    <table class="table table-bordered table-striped table-hover">
       <thead>
         <tr>
           <th>#</th>
@@ -19,26 +79,26 @@
           <th>Description</th>
           <th>Date</th>
           <th>Location</th>
-          <th>Image</th> <!-- Kolom untuk gambar -->
+          <th>Image</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <% tournaments.forEach(tournament => { %>
+        <% tournaments.forEach((tournament, index) => { %>
           <tr>
-            <td><%= tournament.id %></td>
+            <td><%= index + 1 %></td>
             <td><%= tournament.name %></td>
             <td><%= tournament.description %></td>
-            <td><strong>Date:</strong> <%= new Date(tournament.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %></td>
+            <td><%= new Date(tournament.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) %></td>
             <td><%= tournament.location %></td>
             <td>
               <% if (tournament.image_url) { %>
-                <img src="<%= tournament.image_url %>" alt="<%= tournament.name %>" style="width: 100px; height: 100px; object-fit: cover;">
+                <img src="<%= tournament.image_url %>" alt="<%= tournament.name %>" style="width: 80px; height: 80px; object-fit: cover;">
               <% } else { %>
-                <img src="/assets/no-image.png" alt="No Image" style="width: 100px; height: 100px; object-fit: cover;">
+                <img src="/assets/no-image.png" alt="No Image" style="width: 80px; height: 80px; object-fit: cover;">
               <% } %>
             </td>
-            <td>
+            <td class="actions">
               <a href="/edit/<%= tournament.id %>" class="btn btn-warning btn-sm">Edit</a>
               <a href="/delete/<%= tournament.id %>" class="btn btn-danger btn-sm">Delete</a>
             </td>
@@ -47,5 +107,7 @@
       </tbody>
     </table>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

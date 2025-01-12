@@ -4,27 +4,70 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Tournament</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Arial', sans-serif;
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-weight: bold;
+      color: #0056b3;
+      margin-bottom: 30px;
+    }
+    .form-control {
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 10px;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    .form-group label {
+      font-weight: 500;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-control:focus {
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+      border-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
+
   <div class="container mt-5">
     <h1 class="text-center">Add Tournament</h1>
     <form action="/add" method="POST" enctype="multipart/form-data">
       <div class="form-group">
         <label for="name">Tournament Name</label>
-        <input type="text" class="form-control" id="name" name="name" maxlength="255" required>
+        <input type="text" class="form-control" id="name" name="name" maxlength="255" required placeholder="Enter tournament name">
       </div>
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea class="form-control" id="description" name="description" maxlength="255"></textarea>
+        <textarea class="form-control" id="description" name="description" maxlength="255" placeholder="Enter tournament description" rows="4"></textarea>
       </div>
       <div class="form-group">
         <label for="date">Date</label>
-        <input type="date" class="form-control" id="date" name="date" maxlength="255">
+        <input type="date" class="form-control" id="date" name="date" required>
       </div>
       <div class="form-group">
         <label for="location">Location</label>
-        <input type="text" class="form-control" id="location" name="location" maxlength="255">
+        <input type="text" class="form-control" id="location" name="location" maxlength="255" required placeholder="Enter location">
       </div>
       <div class="form-group">
         <label for="image">Tournament Image</label>
@@ -33,5 +76,8 @@
       <button type="submit" class="btn btn-primary">Save Tournament</button>
     </form>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
